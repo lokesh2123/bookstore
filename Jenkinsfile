@@ -16,6 +16,7 @@ pipeline {
         stage('Building the docker image') {
             steps {
                 sh '''
+                ls -lrth
                 docker build . -t bookstore:${BUILD_NUMBER}
 		        docker tag bookstore:${BUILD_NUMBER} lokesh2123/bookstore:${BUILD_NUMBER}
                 '''
