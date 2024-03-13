@@ -2,7 +2,7 @@ pipeline {
      agent any
 
    environment {
-	DOCKER_PASSWORD=credentials('7098d543-649c-4c0d-9378-64e9bcfc56e9')
+	dockerhub_pwd=credentials('e46de8fc-f720-401a-ab10-a42497edd7ef')
   }		
     stages{
         stage('Building the app using maven') {
@@ -17,18 +17,34 @@ pipeline {
             steps {
                 sh '''
                 docker build . -t bookstore:${BUILD_NUMBER}
-		docker tag bookstore:${BUILD_NUMBER} shabuddinshaik/bookstore:${BUILD_NUMBER}
+		        docker tag bookstore:${BUILD_NUMBER} lokesh2123/bookstore:${BUILD_NUMBER}
                 '''
             }
         }
         stage('Push Docker Image'){
             steps{
                sh ''' 
-	       echo ${DOCKER_PASSWORD} | docker login -u shabuddinshaik --password-stdin 
-               docker push shabuddinshaik/bookstore:${BUILD_NUMBER}
+	           echo ${DOCKER_PASSWORD} | docker login -u lokesh2123 --password-stdin 
+               docker push lokesh2123/bookstore:${BUILD_NUMBER}
              '''
             }
         }
-	    	    
+        stage('Containerizing the app') {
+            steps {
+            sh '''
+            echo Creating the image on top of tomcat
+            APP_NAME=`ls -lrt target/ | awk '{print $9}' | grep ".war" | awk -F"-" '{print $1}'`
+            docker build . -t $APP_NAME:${BUILD_NUMBER}
+            '''
+            }
+        } 
+	    stage('Deploy to EKS Kubernetes cluster') {
+	       steps {
+           sh '''
+	       #kubectl apply -f deployment.yaml
+	       kubectl create deployment onlinebookstore --image onlinebookstore:${BUILD_NUMBER}
+	       '''
     }
+}
+}    	    
 }
