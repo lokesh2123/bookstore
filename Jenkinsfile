@@ -39,12 +39,10 @@ pipeline {
             '''
             }
         } 
-	    stage('Deploy to EKS Kubernetes cluster') {
+	    stage('Deploy to docker') {
 	       steps {
-           withAWS(credentials: 'aws-eks', region: 'ap-south-1')
            sh '''
-	       #kubectl apply -f deployment.yaml
-	       kubectl create deployment onlinebookstore --image onlinebookstore:${BUILD_NUMBER}
+	       docker run -it -d -p 8085:8080 lokesh2123/bookstore:${BUILD_NUMBER}
 	       '''
         }
     }
