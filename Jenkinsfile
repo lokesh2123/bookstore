@@ -41,12 +41,12 @@ pipeline {
         } 
 	    stage('Deploy to EKS Kubernetes cluster') {
 	       steps {
-           withAWS(credentials: 'aws-eks', region: 'ap-south-1') {
+           withAWS(credentials: 'aws-eks', region: 'ap-south-1')
            sh '''
 	       #kubectl apply -f deployment.yaml
 	       kubectl create deployment onlinebookstore --image onlinebookstore:${BUILD_NUMBER}
-	  }  '''
+	       '''
+        }
     }
-  }
- }    	    
+  }    	    
 }
