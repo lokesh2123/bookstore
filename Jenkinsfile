@@ -32,8 +32,8 @@ pipeline {
                         // Push Docker image to Docker Hub
                         dockerImage.push()
         
-	           #echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
-               #docker push lokesh2123/bookstore:${BUILD_NUMBER}
+	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
+               docker push lokesh2123/bookstore:${BUILD_NUMBER}
                '''
             }
         }
