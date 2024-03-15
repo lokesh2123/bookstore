@@ -2,9 +2,14 @@ pipeline {
      agent any
 
    environment {
-	dockerhub_pwd=credentials('786ca9ac-8266-4490-9306-cf72ebc93ea2')
+	dockerhub_pwd=credentials('ff8fd336-64cc-44b8-b7de-6ddf83708003')
   }		
     stages{
+        stage{
+            steps{
+                
+            }
+        }
         stage('Building the app using maven') {
             steps {
                 sh '''
@@ -25,7 +30,7 @@ pipeline {
         stage('Push Docker Image'){
             steps{
                sh ''' 
-	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin 
+	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
                docker push lokesh2123/bookstore:${BUILD_NUMBER}
              '''
             }
