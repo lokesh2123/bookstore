@@ -25,7 +25,7 @@ pipeline {
         stage('Push Docker Image'){
             steps{
                sh ''' 
-               dockerImage = docker.build("lokesh2123/bookstore:${BUILD_NUMBER}")
+               dockerImage = docker.build lokesh2123/bookstore:${BUILD_NUMBER}
 
                     // Authenticate with Docker Hub
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub_credentials') {
