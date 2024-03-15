@@ -26,7 +26,7 @@ pipeline {
             steps{
                sh ''' 
 	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
-               docker push lokesh2123/bookstore:\${env.BUILD_NUMBER}
+               docker push lokesh2123/bookstore:${BUILD_NUMBER}
              '''
             }
         }
