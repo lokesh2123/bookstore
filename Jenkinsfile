@@ -25,9 +25,15 @@ pipeline {
         stage('Push Docker Image'){
             steps{
                sh ''' 
-               set -x
-	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
-               docker push lokesh2123/bookstore:${BUILD_NUMBER}
+               dockerImage = docker.build("lokesh2123/bookstore:${BUILD_NUMBER}")
+
+                    // Authenticate with Docker Hub
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub_credentials') {
+                        // Push Docker image to Docker Hub
+                        dockerImage.push()
+        
+	           #echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
+               #docker push lokesh2123/bookstore:${BUILD_NUMBER}
                '''
             }
         }
