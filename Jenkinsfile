@@ -2,7 +2,7 @@ pipeline {
      agent any
 
    environment {
-	dockerhub_pwd=credentials('e46de8fc-f720-401a-ab10-a42497edd7ef')
+	dockerhub_pwd=credentials('786ca9ac-8266-4490-9306-cf72ebc93ea2')
   }		
     stages{
         stage('Building the app using maven') {
