@@ -28,7 +28,7 @@ pipeline {
                set -x
 	           echo ${dockerhub_pwd} | docker login -u lokesh2123 --password-stdin
                docker push lokesh2123/bookstore:${BUILD_NUMBER}
-             '''
+               '''
             }
         }
         stage('Containerizing the app') {
