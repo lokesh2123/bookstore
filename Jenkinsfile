@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
 	dockerhub_pwd=credentials('a0ec86c6-320f-47cc-8073-ceca06018c4d')
   }		
@@ -42,7 +42,7 @@ pipeline {
 	    stage('Deploy to docker') {
 	       steps {
            sh '''
-	       docker run -it -d -p 8085:8080 lokesh2123/bookstore:${BUILD_NUMBER}
+	       docker run -it -d lokesh2123/bookstore:${BUILD_NUMBER}
 	       '''
         }
     }
