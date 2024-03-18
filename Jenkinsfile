@@ -1,7 +1,7 @@
 pipeline {
      agent any
 
-   environment {
+    environment {
 	dockerhub_pwd=credentials('a0ec86c6-320f-47cc-8073-ceca06018c4d')
   }		
     stages{
